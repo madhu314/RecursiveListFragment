@@ -48,9 +48,9 @@ public class FileListAdapter extends BaseAdapter {
 		}
 		File f = root.listFiles()[position];
 		if(f.isDirectory()) {
-			tv.setTextColor(Color.GREEN);
-		} else {
 			tv.setTextColor(Color.BLUE);
+		} else {
+			tv.setTextColor(Color.RED);
 		}
 		tv.setText(f.getName());
 		return tv;
