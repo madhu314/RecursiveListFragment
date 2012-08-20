@@ -15,13 +15,13 @@ public class FileListAdapter extends BaseAdapter {
 
 	private File root = null;
 	private Context context = null;
-	private ArrayList<File> stack = new ArrayList<File>(); 
-	
+	private ArrayList<File> stack = new ArrayList<File>();
+
 	public FileListAdapter(Context context, File root) {
 		this.context = context;
 		this.root = root;
 	}
-	
+
 	@Override
 	public int getCount() {
 		return root.listFiles().length;
@@ -41,38 +41,35 @@ public class FileListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		TextView tv = null;
-		if(convertView == null) {
-			tv = (TextView) LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, null);
+		if (convertView == null) {
+			tv = (TextView) LayoutInflater.from(context).inflate(
+					android.R.layout.simple_list_item_1, null);
 		} else {
-			tv =(TextView) convertView;
+			tv = (TextView) convertView;
 		}
 		File f = root.listFiles()[position];
-		if(f.isDirectory()) {
+		if (f.isDirectory()) {
 			tv.setTextColor(Color.BLUE);
 		} else {
 			tv.setTextColor(Color.RED);
 		}
 		tv.setText(f.getName());
 		return tv;
-		
+
 	}
-	
-	public boolean pushRoot(File newRoot) {
-		if(newRoot.isDirectory()) {
-			stack.add(root);
-			setRoot(newRoot);
-			return true;
-		}
-		return false;
+
+	public void pushRoot(File newRoot) {
+		stack.add(root);
+		setRoot(newRoot);
 	}
-	
+
 	private void setRoot(File newRoot) {
 		this.root = newRoot;
 		notifyDataSetChanged();
 	}
 
 	public void pop() {
-		if(stack.size() > 0) {
+		if (stack.size() > 0) {
 			File root = stack.remove(stack.size() - 1);
 			setRoot(root);
 		}
@@ -80,6 +77,10 @@ public class FileListAdapter extends BaseAdapter {
 
 	public boolean isStackEmpty() {
 		return stack.size() == 0;
+	}
+
+	public boolean canPush(File file) {
+		return file.isDirectory();
 	}
 
 }
