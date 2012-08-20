@@ -1,0 +1,1 @@
+A sample android application that explains how to use list adapter when working with data models of composite pattern. This example works with composite patternof Files structure. Using only a single adapter and a single list view, the app will provide a directory listing.
